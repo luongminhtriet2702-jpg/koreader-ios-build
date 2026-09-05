@@ -35,21 +35,15 @@ jobs:
           make --version
           xcodebuild -version
           xcrun --sdk iphoneos --show-sdk-path
-          chmod +x ./platform/ios/check-prereqs.sh
-          ./platform/ios/check-prereqs.sh
-
-      - name: Fetch thirdparty & Build toolchain
-        run: |
-          make TARGET=ios fetchthirdparty
-          make TARGET=ios toolchain
 
       - name: Generate Xcode project
         run: |
+          # Dự án này chỉ cần tạo xcodeproj trực tiếp từ lệnh make mặc định
           make TARGET=ios xcodeproj
 
       - name: Build KOReader (Release Mode)
         run: |
-          # Chuyển sang Release để app mượt và chạy được trên iPad
+          # Build dự án bằng xcodebuild sang chế độ Release cho iPad
           xcodebuild \
             -project platform/ios/KOReader.xcodeproj \
             -scheme KOReader \
@@ -63,14 +57,14 @@ jobs:
 
       - name: Package IPA
         run: |
-          # Tìm file KOReader.app trong thư mục Release-iphoneos
+          # Tìm kiếm file ứng dụng đã build thành công
           APP=$(find ~/Library/Developer/Xcode/DerivedData -name "KOReader.app" -type d -path "*/Release-iphoneos/*" -print -quit)
           
           if [ -z "$APP" ]; then
-            echo "Lỗi: Không tìm thấy file KOReader.app đã build!" && exit 1
+            echo "Lỗi: Không tìm thấy file KOReader.app!" && exit 1
           fi
 
-          # Đóng gói cấu trúc Payload tiêu chuẩn cho iOS
+          # Đóng gói chuẩn cấu trúc thư mục iOS để tránh lỗi văng app
           mkdir -p Payload
           cp -R "$APP" Payload/
           zip -qry KOReader-iOS.ipa Payload
