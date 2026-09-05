@@ -28,32 +28,45 @@ jobs:
           echo "$(brew --prefix)/opt/make/libexec/gnubin" >> "$GITHUB_PATH"
           echo "$(brew --prefix)/opt/util-linux/bin" >> "$GITHUB_PATH"
 
-      - name: Check Xcode
+      - name: Verify environment
         run: |
+          make --version
           xcodebuild -version
           xcrun --sdk iphoneos --show-sdk-path
+          ./platform/ios/check-prereqs.sh
 
-      - name: Build Xcode project
+      - name: Generate Xcode project
         run: |
           make TARGET=ios xcodeproj
 
-      - name: Build unsigned app
+      - name: Build KOReader
         run: |
           xcodebuild \
             -project KOReader.xcodeproj \
             -scheme KOReader \
-            -configuration Release \
+            -configuration Debug \
             -destination 'generic/platform=iOS' \
-            -derivedDataPath build \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
             build
 
+      - name: Find built app
+        run: |
+          find "$HOME/Library/Developer/Xcode/DerivedData" \
+            -path "*/Build/Products/Debug-iphoneos/KOReader.app" \
+            -print
+
       - name: Package IPA
         run: |
+          APP=$(find "$HOME/Library/Developer/Xcode/DerivedData" \
+            -path "*/Build/Products/Debug-iphoneos/KOReader.app" \
+            -print -quit)
+
+          test -n "$APP"
+
           mkdir -p Payload
-          cp -R build/Build/Products/Release-iphoneos/KOReader.app Payload/
-          zip -r KOReader-iOS.ipa Payload
+          cp -R "$APP" Payload/KOReader.app
+          zip -qry KOReader-iOS.ipa Payload
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
