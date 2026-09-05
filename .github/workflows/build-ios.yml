@@ -30,18 +30,24 @@ jobs:
           echo "$BREW_PREFIX/opt/util-linux/bin" >> "$GITHUB_PATH"
           echo "$BREW_PREFIX/opt/coreutils/libexec/gnubin" >> "$GITHUB_PATH"
 
+      - name: Initialize Environment via Kodev
+        run: |
+          # Cấp quyền và chạy nạp môi trường bắt buộc của KOReader
+          chmod +x ./kodev
+          ./kodev target ios
+
       - name: Generate Xcode project
         run: |
+          # Tạo project bằng lệnh tích hợp chuẩn của repo
           make TARGET=ios xcodeproj
 
       - name: Build KOReader (Release Mode)
         run: |
-          # Tự động quét tìm file .xcodeproj bất kể nó nằm ở thư mục nào
+          # Tìm file .xcodeproj chính xác vừa được sinh ra để build
           XCODEPROJ=$(find . -name "KOReader.xcodeproj" -print -quit)
           if [ -z "$XCODEPROJ" ]; then
-            echo "Lỗi: Không tìm thấy bất kỳ file KOReader.xcodeproj nào!" && exit 1
+            echo "Lỗi: Không tìm thấy file KOReader.xcodeproj!" && exit 1
           fi
-          echo "Tìm thấy dự án tại: $XCODEPROJ"
 
           xcodebuild \
             -project "$XCODEPROJ" \
@@ -56,13 +62,14 @@ jobs:
 
       - name: Package IPA
         run: |
-          # Quét tìm file KOReader.app trong thư mục đầu ra
+          # Quét tìm thư mục xuất file .app của Xcode
           APP=$(find ~/Library/Developer/Xcode/DerivedData -name "KOReader.app" -type d -path "*/Release-iphoneos/*" -print -quit)
           
           if [ -z "$APP" ]; then
-            echo "Lỗi: Không tìm thấy file KOReader.app đã build!" && exit 1
+            echo "Lỗi: Build thất bại, không tìm thấy file KOReader.app!" && exit 1
           fi
 
+          # Tiến hành đóng gói cấu trúc Payload tiêu chuẩn cho iPad
           mkdir -p Payload
           cp -R "$APP" Payload/
           zip -qry KOReader-iOS.ipa Payload
