@@ -1,3 +1,8 @@
+- name: Validate Info.plist
+  run: |
+    echo "Checking Info.plist..."
+    plutil -lint platform/ios/Info.plist
+    plutil -p platform/ios/Info.plist
 name: Build KOReader iOS IPA
 
 on:
