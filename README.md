@@ -1,61 +1,211 @@
-# 📖 KOReader iOS Automated Build (Unofficial)
+# 📖 KOReader iOS Automated Build
 
-[![GitHub Release](https://shields.io)](https://github.com)
-[![Platform](https://shields.io)](#)
-[![Status](https://shields.io)](#)
-[![License: GPL v3](https://shields.io)](https://gnu.org)
+<p align="center">
 
-> ⚠️ **Lưu ý:** Đây là phiên bản **Không chính thức (Unofficial)**. Dự án này được tối ưu hóa và cấu hình build tự động với sự hỗ trợ từ **ChatGPT AI**.
+**Unofficial automated builds of KOReader for iOS / iPadOS**
 
-Bản build tự động (Automated Build) dành riêng cho ứng dụng **KOReader trên iOS / iPadOS**. Dự án này được fork từ nhánh gốc [hezi/koreader-ios](https://github.com), giúp người dùng dễ dàng tiếp cận và cài đặt tệp `.ipa` mà không cần tự cấu hình môi trường compile phức tạp.
+[![Build](https://github.com/luongminhtriet2702-jpg/koreader-ios-build/actions/workflows/build.yml/badge.svg)](https://github.com/luongminhtriet2702-jpg/koreader-ios-build/actions)
+[![GitHub Releases](https://img.shields.io/github/v/release/luongminhtriet2702-jpg/koreader-ios-build?display_name=tag)](https://github.com/luongminhtriet2702-jpg/koreader-ios-build/releases)
+[![GitHub License](https://img.shields.io/github/license/luongminhtriet2702-jpg/koreader-ios-build)](https://github.com/luongminhtriet2702-jpg/koreader-ios-build)
 
----
+</p>
 
-## ✨ Tính năng nổi bật (Features)
-
-* **Full KOReader Engine:** Giữ nguyên vẹn sức mạnh render file PDF, EPUB, DJVU... cực đỉnh từ KOReader gốc.
-* **Pre-compiled IPA:** Tải và cài đặt trực tiếp, bỏ qua bước build source code rườm rà qua Xcode.
-* **Tối ưu hóa cho iOS:** Tương thích tốt với các công cụ sideload phổ biến hiện nay.
+> ⚠️ **Unofficial project**
+>
+> This repository is **not affiliated with or endorsed by the official KOReader project**.
+> It provides an automated build workflow for the iOS / iPadOS port of KOReader.
 
 ---
 
-## 📲 Hướng dẫn cài đặt (Installation)
+## 📖 About
 
-Để cài đặt tệp `.ipa` của KOReader lên iPhone hoặc iPad, bạn có thể lựa chọn một trong các phương thức Sideload phổ biến dưới đây:
+This project provides **automated iOS / iPadOS builds of KOReader**, making it easier to obtain an `.ipa` without manually setting up the complete iOS build environment.
 
-### 🌟 Cách 1: Sử dụng TrollStore (Khuyên dùng - Vĩnh viễn)
-*Nếu thiết bị của bạn nằm trong phiên bản iOS được TrollStore hỗ trợ:*
-1. Vào mục **Releases** của repo này và tải về file `.ipa` mới nhất.
-2. Mở file bằng ứng dụng **TrollStore** trên thiết bị của bạn.
-3. Nhấn **Install** để cài đặt. Ứng dụng sẽ hoạt động vĩnh viễn không bị giới hạn thời gian.
+The project is based on the iOS / iPadOS port maintained by **[hezi/koreader-ios](https://github.com/hezi/koreader-ios)**.
 
-### 🔄 Cách 2: Sử dụng AltStore / SideStore / Sideloadly (Hạn 7 ngày)
-*Dành cho mọi thiết bị iOS chạy phiên bản chưa có TrollStore:*
-1. Tải file `.ipa` từ mục **Releases** về máy tính hoặc điện thoại.
-2. Sử dụng **AltStore**, **SideStore** hoặc phần mềm **Sideloadly** trên PC/Mac để ký (sign) ứng dụng bằng Apple ID của bạn.
-3. **Lưu ý:** Nếu dùng tài khoản Apple ID miễn phí, bạn cần làm mới (refresh) ứng dụng sau mỗi **7 ngày** để tránh bị hết hạn chứng chỉ.
+KOReader itself is an open-source document reader supporting formats such as:
 
----
+* EPUB
+* PDF
+* DJVU
+* CBZ / CBT
+* MOBI
+* FB2
+* TXT
+* HTML
+* DOC
+* RTF
 
-## 🛠️ Quy trình Build (Build Workflow)
+For more information about KOReader, visit the official project:
 
-Mã nguồn được biên dịch tự động thông qua **GitHub Actions** đảm bảo tính minh bạch, sạch sẽ và an toàn tuyệt đối. 
-
-Nếu bạn muốn tự chạy quy trình build riêng:
-1. Fork repository này về tài khoản của bạn.
-2. Đi tới tab **Actions** và kích hoạt Workflow.
-3. Chạy workflow để tự tạo file `.ipa` mới nhất theo mong muốn.
+**[KOReader](https://github.com/koreader/koreader)**
 
 ---
 
-## 🤝 Đóng góp & Bản quyền (Credits)
+## ✨ Features
 
-* Dự án được xây dựng dựa trên mã nguồn mở của nhóm phát triển chính **[KOReader](https://github.com)**.
-* Chân thành cảm ơn **[hezi](https://github.com)** vì bản port iOS gốc.
-* Được duy trì, tối ưu hóa và đóng gói bởi **[luongminhtriet2702-jpg](https://github.com)** với sự đồng hành và hỗ trợ kỹ thuật từ **ChatGPT**.
+* 📱 **iPhone & iPad support**
+* 📚 Full KOReader reading engine
+* 📄 Support for many ebook and document formats
+* 📦 Automated `.ipa` builds
+* 🤖 GitHub Actions based build workflow
+* 🔄 Easy rebuilding when the upstream source is updated
+* 🛠️ No need to manually configure the complete build environment just to obtain a build artifact
 
 ---
 
-## ⚖️ License
+## 🚀 Download
 
-Dự án này tuân thủ theo giấy phép mã nguồn mở **GNU General Public License v3.0**.
+Pre-built `.ipa` files will be published through the repository's **Releases** section when available.
+
+### Latest release
+
+👉 **[Download from Releases](https://github.com/luongminhtriet2702-jpg/koreader-ios-build/releases)**
+
+If there is no release yet, you can build the project yourself using GitHub Actions.
+
+---
+
+## 📲 Installation
+
+The generated `.ipa` is **not App Store software** and must be installed using a compatible sideloading method.
+
+Common options include:
+
+### TrollStore
+
+If your device and iOS / iPadOS version are supported by TrollStore:
+
+1. Download the `.ipa`.
+2. Open it with TrollStore.
+3. Install the application.
+
+> TrollStore compatibility depends on the device and OS version. Check the current TrollStore documentation before attempting installation.
+
+### AltStore / SideStore / Sideloadly
+
+You can also sign and install the `.ipa` using tools such as:
+
+* AltStore
+* SideStore
+* Sideloadly
+* Xcode / Apple Developer signing
+
+With a free Apple Developer account, sideloaded applications generally require periodic re-signing according to Apple's current limitations.
+
+---
+
+## 🛠️ Automated Build
+
+This repository uses **GitHub Actions** to automate the build process.
+
+The general workflow is:
+
+```text
+Upstream KOReader iOS source
+          ↓
+     GitHub Actions
+          ↓
+      Build process
+          ↓
+       .ipa file
+          ↓
+      Artifact / Release
+```
+
+You can view the build status here:
+
+👉 **[GitHub Actions](https://github.com/luongminhtriet2702-jpg/koreader-ios-build/actions)**
+
+### Run a build yourself
+
+1. Fork this repository.
+2. Open the **Actions** tab.
+3. Select the available build workflow.
+4. Run the workflow.
+5. Wait for the build to complete.
+6. Download the generated artifact.
+
+---
+
+## 🔄 Upstream Project
+
+This project is based on the following open-source projects:
+
+### KOReader
+
+**[koreader/koreader](https://github.com/koreader/koreader)**
+
+The main KOReader project.
+
+### KOReader iOS / iPadOS
+
+**[hezi/koreader-ios](https://github.com/hezi/koreader-ios)**
+
+The iOS / iPadOS port used as the basis for this build project.
+
+Please support the original developers and contributors of these projects.
+
+---
+
+## ⚠️ Disclaimer
+
+This is an **unofficial community build project**.
+
+* This repository is **not an official KOReader repository**.
+* This project is **not affiliated with or endorsed by the KOReader developers**.
+* The `.ipa` files generated by this project are intended for personal testing and use.
+* Installation and sideloading are subject to Apple's current signing and platform restrictions.
+* Always verify the source code and GitHub Actions workflow before using builds from any third-party repository.
+
+---
+
+## 🤝 Credits
+
+Special thanks to:
+
+* **KOReader developers and contributors**
+* **hezi** — iOS / iPadOS port
+* The open-source community
+* Everyone testing and reporting issues
+
+This repository is maintained by **[luongminhtriet2702-jpg](https://github.com/luongminhtriet2702-jpg)**.
+
+AI assistance, including **ChatGPT**, was used during development and workflow configuration.
+
+---
+
+## 🐛 Issues & Feedback
+
+Found a problem?
+
+Please open an issue:
+
+👉 **[Report an issue](https://github.com/luongminhtriet2702-jpg/koreader-ios-build/issues)**
+
+When reporting a problem, please include:
+
+* iPhone / iPad model
+* iOS / iPadOS version
+* Build version
+* Installation method
+* Error message
+* Relevant GitHub Actions log
+
+Screenshots and logs are especially helpful.
+
+---
+
+## 📜 License
+
+This repository follows the license requirements of the upstream projects and the source code included in this repository.
+
+See the repository's license files for the exact licensing terms.
+
+---
+
+<p align="center">
+
+**Made with ❤️ for KOReader users on iOS / iPadOS**
+
+</p>
