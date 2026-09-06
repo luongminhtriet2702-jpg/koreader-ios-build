@@ -9,9 +9,6 @@ jobs:
 
     steps:
 
-      # ==========================================
-      # 1. TẢI KOReader iOS
-      # ==========================================
       - name: Checkout KOReader iOS
         uses: actions/checkout@v4
         with:
@@ -19,10 +16,6 @@ jobs:
           submodules: recursive
           fetch-depth: 1
 
-
-      # ==========================================
-      # 2. CÀI DEPENDENCIES
-      # ==========================================
       - name: Install dependencies
         run: |
           brew install \
@@ -45,10 +38,6 @@ jobs:
             util-linux \
             xcodegen
 
-
-      # ==========================================
-      # 3. DÙNG GNU TOOLS
-      # ==========================================
       - name: Configure GNU tools
         run: |
           echo "$(brew --prefix)/opt/findutils/libexec/gnubin" >> "$GITHUB_PATH"
@@ -56,68 +45,38 @@ jobs:
           echo "$(brew --prefix)/opt/make/libexec/gnubin" >> "$GITHUB_PATH"
           echo "$(brew --prefix)/opt/util-linux/bin" >> "$GITHUB_PATH"
 
-
-      # ==========================================
-      # 4. KIỂM TRA XCODE + SDK
-      # ==========================================
       - name: Check environment
         run: |
-          echo "================ MAKE ================"
           make --version
-
-          echo "================ XCODE ================"
           xcodebuild -version
-
-          echo "================ IOS SDK ================"
           xcrun --sdk iphoneos --show-sdk-path
-
-          echo "================ PREREQUISITES ================"
           ./platform/ios/check-prereqs.sh
 
-
-      # ==========================================
-      # 5. KIỂM TRA INFO.PLIST
-      # ==========================================
-      - name: Validate Info.plist
+      - name: Create Info.plist
         run: |
-          echo "================ INFO.PLIST ================"
+          echo "Creating platform/ios/Info.plist..."
 
-          if [ ! -f "platform/ios/Info.plist" ]; then
-            echo "ERROR: platform/ios/Info.plist NOT FOUND"
-            exit 1
-          fi
+          test -f platform/ios/Info.plist.in
 
-          cat platform/ios/Info.plist
-
-          echo "================ PLIST VALIDATION ================"
+          sed 's/@VERSION@/0.0.0/g' \
+            platform/ios/Info.plist.in \
+            > platform/ios/Info.plist
 
           plutil -lint platform/ios/Info.plist
 
-          echo "================ PLIST OK ================"
+          echo "Info.plist created successfully."
 
-
-      # ==========================================
-      # 6. TẠO XCODE PROJECT
-      # ==========================================
       - name: Generate Xcode project
         run: |
           make TARGET=ios xcodeproj
 
-          echo "================ PROJECT CREATED ================"
-
           test -f KOReader.xcodeproj/project.pbxproj
 
-          echo "KOReader.xcodeproj OK"
+          echo "Xcode project generated successfully."
 
-
-      # ==========================================
-      # 7. BUILD KOReader
-      # ==========================================
       - name: Build KOReader
         run: |
           set -o pipefail
-
-          echo "================ BUILD START ================"
 
           xcodebuild \
             -project KOReader.xcodeproj \
@@ -128,74 +87,26 @@ jobs:
             CODE_SIGNING_REQUIRED=NO \
             build 2>&1 | tee xcodebuild.log
 
-          BUILD_EXIT=${PIPESTATUS[0]}
-
-          echo "================ BUILD EXIT CODE ================"
-          echo "$BUILD_EXIT"
-
-          echo "================ XCODE ERRORS ================"
-
-          grep -n -i \
-            -B 8 \
-            -A 15 \
-            "error:" \
-            xcodebuild.log \
-            | head -n 200 || true
-
-          echo "================ INFO.PLIST ERRORS ================"
-
-          grep -n -i \
-            -B 8 \
-            -A 15 \
-            "plist" \
-            xcodebuild.log \
-            | head -n 200 || true
-
-          if [ "$BUILD_EXIT" -ne 0 ]; then
-            echo "================ BUILD FAILED ================"
-            exit "$BUILD_EXIT"
-          fi
-
-          echo "================ BUILD SUCCESS ================"
-
-
-      # ==========================================
-      # 8. TÌM KOReader.app
-      # ==========================================
-      - name: Find KOReader app
+      - name: Find KOReader.app
         run: |
-          echo "================ SEARCHING APP ================"
-
-          find "$HOME/Library/Developer/Xcode/DerivedData" \
-            -type d \
-            -path "*/Build/Products/Debug-iphoneos/KOReader.app" \
-            -print
-
           APP=$(find "$HOME/Library/Developer/Xcode/DerivedData" \
             -type d \
             -path "*/Build/Products/Debug-iphoneos/KOReader.app" \
             -print -quit)
 
           if [ -z "$APP" ]; then
-            echo "ERROR: KOReader.app NOT FOUND"
+            echo "KOReader.app was not found."
             exit 1
           fi
 
-          echo "KOReader.app found:"
+          echo "Found:"
           echo "$APP"
 
           echo "$APP" > koreader_app_path.txt
 
-
-      # ==========================================
-      # 9. ĐÓNG GÓI IPA
-      # ==========================================
       - name: Package IPA
         run: |
           APP=$(cat koreader_app_path.txt)
-
-          echo "Using:"
-          echo "$APP"
 
           rm -rf Payload
           mkdir -p Payload
@@ -204,30 +115,18 @@ jobs:
 
           zip -qry KOReader-iOS.ipa Payload
 
-          echo "================ IPA CREATED ================"
-
           ls -lh KOReader-iOS.ipa
 
-
-      # ==========================================
-      # 10. UPLOAD IPA
-      # ==========================================
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
           name: KOReader-iOS-IPA
           path: KOReader-iOS.ipa
 
-
-      # ==========================================
-      # 11. UPLOAD LOG NẾU CÓ LỖI
-      # ==========================================
       - name: Upload build log
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: KOReader-Build-Log
-          path: |
-            xcodebuild.log
-            koreader_app_path.txt
+          path: xcodebuild.log
           if-no-files-found: ignore
