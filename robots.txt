@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://luongminhtriet2702-jpg.github.io/koreader-ios-build/sitemap.xml
