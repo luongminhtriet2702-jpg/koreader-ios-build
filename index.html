@@ -8,10 +8,10 @@
 
   <meta
     name="description"
-    content="KOReader for iOS and iPadOS — a powerful, customizable ebook reader."
+    content="KOReader for iOS and iPadOS — an unofficial community build based on the hezi/koreader-ios fork."
   >
 
-  <meta name="theme-color" content="#0b0b0f">
+  <meta name="theme-color" content="#08080c">
 
   <style>
     * {
@@ -29,6 +29,7 @@
         -apple-system,
         BlinkMacSystemFont,
         "SF Pro Display",
+        "SF Pro Text",
         "Segoe UI",
         Roboto,
         Helvetica,
@@ -37,14 +38,14 @@
 
       background:
         radial-gradient(
-          circle at 50% -10%,
-          rgba(120, 90, 255, 0.22),
+          circle at 50% -15%,
+          rgba(112, 88, 255, 0.24),
           transparent 38%
         ),
         #08080c;
 
       color: #f5f5f7;
-      min-height: 100vh;
+      line-height: 1.5;
       overflow-x: hidden;
     }
 
@@ -53,7 +54,7 @@
       text-decoration: none;
     }
 
-    /* ---------- NAV ---------- */
+    /* ================= NAV ================= */
 
     nav {
       position: fixed;
@@ -69,27 +70,51 @@
 
       padding: 0 7%;
 
-      background: rgba(8, 8, 12, 0.68);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+      background: rgba(8, 8, 12, 0.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
 
       border-bottom: 1px solid rgba(255,255,255,0.07);
 
       z-index: 1000;
     }
 
-    .nav-logo {
-      font-size: 18px;
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      font-size: 17px;
       font-weight: 700;
       letter-spacing: -0.4px;
     }
 
+    .logo-icon {
+      width: 30px;
+      height: 30px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 9px;
+
+      background: linear-gradient(
+        135deg,
+        #ffffff,
+        #b9b5ff
+      );
+
+      color: #111;
+      font-size: 16px;
+    }
+
     .nav-links {
       display: flex;
-      gap: 26px;
+      gap: 28px;
 
+      color: #a5a5af;
       font-size: 14px;
-      color: #aaaab4;
     }
 
     .nav-links a {
@@ -97,10 +122,10 @@
     }
 
     .nav-links a:hover {
-      color: white;
+      color: #fff;
     }
 
-    /* ---------- HERO ---------- */
+    /* ================= HERO ================= */
 
     .hero {
       min-height: 100vh;
@@ -111,15 +136,40 @@
 
       text-align: center;
 
-      padding: 120px 20px 80px;
+      padding: 130px 20px 90px;
 
       position: relative;
     }
 
     .hero-content {
-      max-width: 850px;
+      max-width: 900px;
       position: relative;
       z-index: 2;
+    }
+
+    .glow {
+      position: absolute;
+
+      width: 500px;
+      height: 500px;
+
+      border-radius: 50%;
+
+      background: rgba(105, 80, 255, 0.10);
+
+      filter: blur(110px);
+
+      pointer-events: none;
+    }
+
+    .glow-left {
+      left: -300px;
+      top: 20%;
+    }
+
+    .glow-right {
+      right: -300px;
+      bottom: 0;
     }
 
     .badge {
@@ -127,18 +177,19 @@
       align-items: center;
       gap: 8px;
 
-      padding: 8px 14px;
+      padding: 8px 15px;
 
       border-radius: 999px;
 
-      background: rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.055);
+
       border: 1px solid rgba(255,255,255,0.09);
 
-      color: #bdbdc8;
+      color: #bdbdc7;
 
       font-size: 13px;
 
-      margin-bottom: 28px;
+      margin-bottom: 30px;
     }
 
     .badge-dot {
@@ -147,15 +198,18 @@
 
       border-radius: 50%;
 
-      background: #8b7cff;
-      box-shadow: 0 0 14px #8b7cff;
+      background: #8e7dff;
+
+      box-shadow:
+        0 0 14px rgba(142,125,255,0.9);
     }
 
     h1 {
-      font-size: clamp(48px, 8vw, 92px);
+      font-size: clamp(52px, 9vw, 100px);
+
       line-height: 0.95;
 
-      letter-spacing: -5px;
+      letter-spacing: -6px;
 
       font-weight: 800;
 
@@ -165,7 +219,7 @@
         linear-gradient(
           180deg,
           #ffffff 0%,
-          #c9c9d1 100%
+          #c8c8d0 100%
         );
 
       -webkit-background-clip: text;
@@ -174,24 +228,37 @@
       color: transparent;
     }
 
-    .subtitle {
+    .hero-subtitle {
+      max-width: 700px;
+
+      margin: 0 auto 16px;
+
+      font-size: clamp(19px, 2.5vw, 25px);
+
+      color: #d0d0d7;
+
+      letter-spacing: -0.4px;
+    }
+
+    .hero-description {
       max-width: 650px;
 
-      margin: 0 auto 36px;
+      margin: 0 auto 38px;
 
-      font-size: clamp(18px, 2vw, 22px);
+      color: #92929d;
 
-      line-height: 1.6;
+      font-size: 16px;
 
-      color: #a5a5af;
+      line-height: 1.7;
     }
 
     .buttons {
       display: flex;
 
+      align-items: center;
       justify-content: center;
 
-      gap: 14px;
+      gap: 13px;
 
       flex-wrap: wrap;
     }
@@ -202,7 +269,7 @@
       align-items: center;
       justify-content: center;
 
-      min-width: 180px;
+      min-width: 185px;
 
       padding: 15px 24px;
 
@@ -221,90 +288,130 @@
       transform: translateY(-2px);
     }
 
-    .button-primary {
-      background: #ffffff;
+    .primary {
+      background: #fff;
       color: #09090c;
 
       box-shadow:
-        0 10px 35px rgba(255,255,255,0.10);
+        0 12px 40px rgba(255,255,255,0.12);
     }
 
-    .button-primary:hover {
+    .primary:hover {
       box-shadow:
-        0 15px 45px rgba(255,255,255,0.18);
+        0 18px 50px rgba(255,255,255,0.20);
     }
 
-    .button-secondary {
-      background: rgba(255,255,255,0.06);
+    .secondary {
+      background: rgba(255,255,255,0.055);
 
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.10);
 
-      color: white;
+      color: #fff;
     }
 
-    .button-secondary:hover {
-      background: rgba(255,255,255,0.1);
+    .secondary:hover {
+      background: rgba(255,255,255,0.10);
     }
 
-    /* ---------- GLOW ---------- */
+    .hero-note {
+      margin-top: 22px;
 
-    .glow {
-      position: absolute;
+      color: #666672;
 
-      width: 500px;
-      height: 500px;
-
-      border-radius: 50%;
-
-      background: rgba(100, 80, 255, 0.10);
-
-      filter: blur(100px);
-
-      pointer-events: none;
+      font-size: 12px;
     }
 
-    .glow-one {
-      top: 15%;
-      left: -250px;
-    }
-
-    .glow-two {
-      bottom: 0;
-      right: -250px;
-    }
-
-    /* ---------- SECTIONS ---------- */
+    /* ================= SECTIONS ================= */
 
     section {
-      padding: 100px 7%;
+      padding: 105px 7%;
     }
 
-    .section-inner {
+    .container {
       max-width: 1100px;
       margin: auto;
     }
 
+    .eyebrow {
+      text-transform: uppercase;
+
+      letter-spacing: 2px;
+
+      color: #8275dc;
+
+      font-size: 11px;
+      font-weight: 700;
+
+      margin-bottom: 13px;
+    }
+
     .section-title {
-      font-size: clamp(32px, 5vw, 50px);
+      font-size: clamp(34px, 5vw, 52px);
 
-      letter-spacing: -2px;
+      letter-spacing: -2.5px;
 
-      margin-bottom: 16px;
+      line-height: 1.05;
+
+      margin-bottom: 17px;
     }
 
     .section-description {
-      color: #9999a4;
+      max-width: 680px;
 
-      font-size: 17px;
+      color: #92929d;
+
+      font-size: 16px;
 
       line-height: 1.7;
 
-      max-width: 650px;
-
-      margin-bottom: 50px;
+      margin-bottom: 48px;
     }
 
-    /* ---------- FEATURES ---------- */
+    /* ================= FORK INFO ================= */
+
+    .fork-card {
+      display: grid;
+
+      grid-template-columns: 1fr auto;
+
+      align-items: center;
+
+      gap: 30px;
+
+      padding: 30px;
+
+      border-radius: 24px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(125,105,255,0.10),
+          rgba(255,255,255,0.035)
+        );
+
+      border: 1px solid rgba(255,255,255,0.09);
+    }
+
+    .fork-title {
+      font-size: 19px;
+      font-weight: 700;
+
+      margin-bottom: 8px;
+    }
+
+    .fork-text {
+      color: #9999a4;
+
+      font-size: 14px;
+
+      line-height: 1.7;
+    }
+
+    .fork-button {
+      white-space: nowrap;
+    }
+
+    /* ================= FEATURES ================= */
 
     .features {
       display: grid;
@@ -312,24 +419,24 @@
       grid-template-columns:
         repeat(3, 1fr);
 
-      gap: 18px;
+      gap: 17px;
     }
 
     .feature {
-      padding: 30px;
+      min-height: 195px;
 
-      min-height: 190px;
+      padding: 29px;
 
       border-radius: 22px;
 
       background:
         linear-gradient(
           145deg,
-          rgba(255,255,255,0.07),
+          rgba(255,255,255,0.065),
           rgba(255,255,255,0.025)
         );
 
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.075);
 
       transition:
         transform 0.25s ease,
@@ -340,38 +447,43 @@
       transform: translateY(-5px);
 
       border-color:
-        rgba(255,255,255,0.17);
+        rgba(255,255,255,0.16);
     }
 
     .feature-icon {
-      font-size: 28px;
+      font-size: 27px;
 
       margin-bottom: 20px;
     }
 
     .feature h3 {
-      font-size: 18px;
+      font-size: 17px;
 
-      margin-bottom: 10px;
+      margin-bottom: 9px;
     }
 
     .feature p {
-      color: #9999a4;
-
-      line-height: 1.6;
+      color: #90909b;
 
       font-size: 14px;
+
+      line-height: 1.65;
     }
 
-    /* ---------- INSTALL ---------- */
+    /* ================= INSTALL ================= */
 
-    .install-box {
+    .install {
+      background:
+        rgba(255,255,255,0.018);
+    }
+
+    .steps {
       display: grid;
 
       grid-template-columns:
         repeat(3, 1fr);
 
-      gap: 18px;
+      gap: 17px;
     }
 
     .step {
@@ -379,128 +491,151 @@
 
       border-radius: 22px;
 
-      background: rgba(255,255,255,0.045);
+      background: rgba(255,255,255,0.04);
 
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.075);
     }
 
-    .step-number {
-      display: flex;
+    .number {
+      width: 42px;
+      height: 42px;
 
+      display: flex;
       align-items: center;
       justify-content: center;
 
-      width: 40px;
-      height: 40px;
+      border-radius: 13px;
 
-      border-radius: 12px;
-
-      background: rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.085);
 
       font-weight: 700;
 
-      margin-bottom: 22px;
+      margin-bottom: 21px;
     }
 
     .step h3 {
-      margin-bottom: 10px;
+      margin-bottom: 9px;
+
+      font-size: 17px;
     }
 
     .step p {
-      color: #9999a4;
-
-      line-height: 1.6;
+      color: #90909b;
 
       font-size: 14px;
+
+      line-height: 1.65;
     }
 
-    /* ---------- DOWNLOAD ---------- */
+    /* ================= REQUIREMENTS ================= */
+
+    .requirements {
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 10px;
+
+      margin-top: 30px;
+    }
+
+    .pill {
+      padding: 9px 13px;
+
+      border-radius: 999px;
+
+      background: rgba(255,255,255,0.05);
+
+      border: 1px solid rgba(255,255,255,0.075);
+
+      color: #a8a8b2;
+
+      font-size: 13px;
+    }
+
+    /* ================= WARNING ================= */
+
+    .notice {
+      padding: 25px 27px;
+
+      border-radius: 19px;
+
+      background: rgba(255,180,70,0.055);
+
+      border: 1px solid rgba(255,180,70,0.12);
+
+      color: #9e9b96;
+
+      font-size: 14px;
+
+      line-height: 1.7;
+    }
+
+    .notice strong {
+      color: #dedbd5;
+    }
+
+    /* ================= DOWNLOAD ================= */
 
     .download {
       text-align: center;
 
-      padding-top: 80px;
+      padding-top: 90px;
       padding-bottom: 120px;
     }
 
     .download-card {
-      max-width: 760px;
+      max-width: 800px;
 
       margin: auto;
 
-      padding: 60px 30px;
+      padding: 65px 30px;
 
       border-radius: 30px;
 
       background:
         radial-gradient(
-          circle at top,
-          rgba(120,90,255,0.16),
-          transparent 60%
+          circle at 50% 0%,
+          rgba(120,90,255,0.17),
+          transparent 62%
         ),
-        rgba(255,255,255,0.045);
+        rgba(255,255,255,0.04);
 
       border: 1px solid rgba(255,255,255,0.09);
     }
 
     .download-card h2 {
-      font-size: clamp(34px, 5vw, 52px);
+      font-size: clamp(35px, 5vw, 55px);
 
-      letter-spacing: -2px;
+      letter-spacing: -2.5px;
 
-      margin-bottom: 15px;
+      margin-bottom: 14px;
     }
 
     .download-card p {
-      color: #9999a4;
+      color: #92929d;
 
       margin-bottom: 30px;
     }
 
-    .version {
+    .release-info {
       margin-top: 20px;
 
-      font-size: 13px;
+      color: #666672;
 
-      color: #777783;
+      font-size: 12px;
     }
 
-    /* ---------- NOTICE ---------- */
-
-    .notice {
-      max-width: 850px;
-
-      margin: 0 auto;
-
-      padding: 24px;
-
-      border-radius: 18px;
-
-      background: rgba(255,180,70,0.06);
-
-      border: 1px solid rgba(255,180,70,0.12);
-
-      color: #aaa6a0;
-
-      line-height: 1.7;
-
-      font-size: 14px;
-    }
-
-    .notice strong {
-      color: #ddd;
-    }
-
-    /* ---------- FOOTER ---------- */
+    /* ================= FOOTER ================= */
 
     footer {
-      padding: 40px 7%;
-
       border-top: 1px solid rgba(255,255,255,0.07);
 
-      color: #777783;
+      padding: 38px 7%;
 
-      font-size: 13px;
+      color: #686873;
+
+      font-size: 12px;
     }
 
     .footer-inner {
@@ -524,10 +659,10 @@
     }
 
     .footer-links a:hover {
-      color: white;
+      color: #fff;
     }
 
-    /* ---------- MOBILE ---------- */
+    /* ================= MOBILE ================= */
 
     @media (max-width: 800px) {
 
@@ -535,17 +670,25 @@
         display: none;
       }
 
-      .features,
-      .install-box {
-        grid-template-columns: 1fr;
+      h1 {
+        letter-spacing: -4px;
       }
 
       section {
         padding: 80px 6%;
       }
 
-      h1 {
-        letter-spacing: -3px;
+      .features,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .fork-card {
+        grid-template-columns: 1fr;
+      }
+
+      .fork-button {
+        width: fit-content;
       }
 
       .footer-inner {
@@ -560,15 +703,30 @@
 
 <body>
 
-  <!-- NAVIGATION -->
+
+  <!-- ================= NAVIGATION ================= -->
 
   <nav>
 
-    <div class="nav-logo">
-      KOReader
-    </div>
+    <a
+      class="logo"
+      href="#"
+    >
+
+      <span class="logo-icon">
+        📖
+      </span>
+
+      KOReader iOS
+
+    </a>
+
 
     <div class="nav-links">
+
+      <a href="#about">
+        About
+      </a>
 
       <a href="#features">
         Features
@@ -579,7 +737,7 @@
       </a>
 
       <a
-        href="https://github.com/YOUR_GITHUB_USERNAME/koreader-ios-build"
+        href="https://github.com/luongminhtriet2702-jpg/koreader-ios-build"
         target="_blank"
         rel="noopener"
       >
@@ -591,20 +749,22 @@
   </nav>
 
 
-  <!-- HERO -->
+  <!-- ================= HERO ================= -->
 
   <header class="hero">
 
-    <div class="glow glow-one"></div>
-    <div class="glow glow-two"></div>
+    <div class="glow glow-left"></div>
+    <div class="glow glow-right"></div>
+
 
     <div class="hero-content">
+
 
       <div class="badge">
 
         <span class="badge-dot"></span>
 
-        iOS & iPadOS
+        Community iOS / iPadOS Build
 
       </div>
 
@@ -614,10 +774,19 @@
       </h1>
 
 
-      <p class="subtitle">
+      <p class="hero-subtitle">
+        A powerful reading experience,
+        now on iPhone & iPad.
+      </p>
 
-        A powerful, customizable reading experience
-        for your iPhone and iPad.
+
+      <p class="hero-description">
+
+        An unofficial iOS/iPadOS build based on the
+        <strong>hezi/koreader-ios</strong> project.
+
+        Built for readers who want a flexible,
+        customizable reading environment.
 
       </p>
 
@@ -625,22 +794,27 @@
       <div class="buttons">
 
         <a
-          class="button button-primary"
-          href="https://github.com/YOUR_GITHUB_USERNAME/koreader-ios-build/releases/latest"
+          class="button primary"
+          href="https://github.com/luongminhtriet2702-jpg/koreader-ios-build/releases/latest"
         >
           ↓&nbsp; Download IPA
         </a>
 
 
         <a
-          class="button button-secondary"
-          href="https://github.com/YOUR_GITHUB_USERNAME/koreader-ios-build"
+          class="button secondary"
+          href="https://github.com/hezi/koreader-ios"
           target="_blank"
           rel="noopener"
         >
-          View on GitHub
+          View iOS Fork
         </a>
 
+      </div>
+
+
+      <div class="hero-note">
+        Unofficial community build · Not an App Store application
       </div>
 
     </div>
@@ -648,20 +822,92 @@
   </header>
 
 
-  <!-- FEATURES -->
+  <!-- ================= ABOUT ================= -->
+
+  <section id="about">
+
+    <div class="container">
+
+
+      <div class="eyebrow">
+        About this build
+      </div>
+
+
+      <h2 class="section-title">
+        KOReader on iOS.
+      </h2>
+
+
+      <p class="section-description">
+
+        This project provides a downloadable IPA build of
+        KOReader for iPhone and iPad, based on the
+        community-maintained iOS port.
+
+      </p>
+
+
+      <div class="fork-card">
+
+        <div>
+
+          <div class="fork-title">
+            Based on hezi/koreader-ios
+          </div>
+
+          <div class="fork-text">
+
+            This build is based on the
+            <strong>hezi/koreader-ios</strong> fork,
+            which brings KOReader to Apple's mobile
+            platforms.
+
+            The source code and original project are
+            available on GitHub.
+
+          </div>
+
+        </div>
+
+
+        <a
+          class="button secondary fork-button"
+          href="https://github.com/hezi/koreader-ios"
+          target="_blank"
+          rel="noopener"
+        >
+          View Source ↗
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= FEATURES ================= -->
 
   <section id="features">
 
-    <div class="section-inner">
+    <div class="container">
+
+
+      <div class="eyebrow">
+        Features
+      </div>
+
 
       <h2 class="section-title">
         Read your way.
       </h2>
 
+
       <p class="section-description">
 
-        KOReader is designed for readers who want
-        complete control over their reading experience.
+        KOReader gives you extensive control over
+        how your books and documents look and behave.
 
       </p>
 
@@ -676,12 +922,12 @@
           </div>
 
           <h3>
-            Many Formats
+            Multiple Formats
           </h3>
 
           <p>
             Read EPUB, PDF, MOBI, CBZ, CBR and
-            other supported ebook formats.
+            many other supported formats.
           </p>
 
         </div>
@@ -694,12 +940,12 @@
           </div>
 
           <h3>
-            Customizable
+            Highly Customizable
           </h3>
 
           <p>
-            Adjust fonts, margins, spacing,
-            themes and many other reading options.
+            Customize fonts, margins, spacing,
+            layout and many other reading options.
           </p>
 
         </div>
@@ -712,12 +958,12 @@
           </div>
 
           <h3>
-            Highlights
+            Highlights & Notes
           </h3>
 
           <p>
             Highlight passages, add notes and
-            keep your reading organized.
+            keep important parts of your books.
           </p>
 
         </div>
@@ -734,8 +980,8 @@
           </h3>
 
           <p>
-            Look up words while reading and
-            use dictionaries for language learning.
+            Look up words directly while reading
+            and use dictionaries for language learning.
           </p>
 
         </div>
@@ -753,7 +999,7 @@
 
           <p>
             Extend KOReader with plugins and
-            customize your workflow.
+            customize your reading workflow.
           </p>
 
         </div>
@@ -766,12 +1012,12 @@
           </div>
 
           <h3>
-            Built for Readers
+            Reader Focused
           </h3>
 
           <p>
-            A distraction-free reading environment
-            focused on books and documents.
+            A distraction-free environment designed
+            around reading rather than social features.
           </p>
 
         </div>
@@ -784,41 +1030,54 @@
   </section>
 
 
-  <!-- INSTALLATION -->
+  <!-- ================= INSTALL ================= -->
 
-  <section id="install">
+  <section
+    id="install"
+    class="install"
+  >
 
-    <div class="section-inner">
+    <div class="container">
+
+
+      <div class="eyebrow">
+        Installation
+      </div>
+
 
       <h2 class="section-title">
-        Installation
+        Install with AltStore.
       </h2>
+
 
       <p class="section-description">
 
-        Install the IPA using AltStore on your
-        iPhone or iPad.
+        Download the IPA from the latest GitHub Release
+        and install it using AltStore on your iPhone
+        or iPad.
 
       </p>
 
 
-      <div class="install-box">
+      <div class="steps">
 
 
         <div class="step">
 
-          <div class="step-number">
+          <div class="number">
             1
           </div>
 
           <h3>
-            Download
+            Download the IPA
           </h3>
 
           <p>
-            Download the latest
+
+            Open the latest release and download
             <strong>KOReader-iOS.ipa</strong>
-            from the GitHub Release.
+            to your device or computer.
+
           </p>
 
         </div>
@@ -826,7 +1085,7 @@
 
         <div class="step">
 
-          <div class="step-number">
+          <div class="number">
             2
           </div>
 
@@ -835,8 +1094,10 @@
           </h3>
 
           <p>
-            Open AltStore on your iPhone
-            or iPad and add the downloaded IPA.
+
+            Open AltStore on your iPhone or iPad
+            and import the downloaded IPA.
+
           </p>
 
         </div>
@@ -844,21 +1105,48 @@
 
         <div class="step">
 
-          <div class="step-number">
+          <div class="number">
             3
           </div>
 
           <h3>
-            Install
+            Install KOReader
           </h3>
 
           <p>
-            Select KOReader and wait for
-            AltStore to finish the installation.
+
+            Select the IPA and let AltStore sign
+            and install the application.
+
           </p>
 
         </div>
 
+
+      </div>
+
+
+      <div class="requirements">
+
+        <span class="pill">
+          iPhone
+        </span>
+
+        <span class="pill">
+          iPad
+        </span>
+
+        <span class="pill">
+          iOS / iPadOS
+        </span>
+
+        <span class="pill">
+          AltStore
+        </span>
+
+        <span class="pill">
+          IPA
+        </span>
 
       </div>
 
@@ -867,23 +1155,32 @@
   </section>
 
 
-  <!-- NOTICE -->
+  <!-- ================= IMPORTANT ================= -->
 
   <section>
 
-    <div class="section-inner">
+    <div class="container">
+
 
       <div class="notice">
 
         <strong>Important:</strong>
 
-        This is a community iOS/iPadOS build of
-        KOReader. It is not distributed through
-        the Apple App Store.
+        This website distributes a community-built
+        iOS/iPadOS version of KOReader.
+
+        It is <strong>not an official Apple App Store
+        application</strong> and is not presented as
+        an official KOReader iOS release.
 
         <br><br>
 
-        Installation through a free Apple Developer
+        The underlying iOS project is available at
+        <strong>github.com/hezi/koreader-ios</strong>.
+
+        <br><br>
+
+        Apps installed using a free Apple Developer
         account may require periodic refreshing.
 
       </div>
@@ -893,35 +1190,62 @@
   </section>
 
 
-  <!-- DOWNLOAD -->
+  <!-- ================= DOWNLOAD ================= -->
 
   <section class="download">
 
-    <div class="download-card">
-
-      <h2>
-        Ready to read?
-      </h2>
-
-      <p>
-        Get the latest KOReader iOS/iPadOS build.
-      </p>
+    <div class="container">
 
 
-      <div class="buttons">
-
-        <a
-          class="button button-primary"
-          href="https://github.com/YOUR_GITHUB_USERNAME/koreader-ios-build/releases/latest"
-        >
-          ↓&nbsp; Download KOReader
-        </a>
-
-      </div>
+      <div class="download-card">
 
 
-      <div class="version">
-        Latest release · iOS / iPadOS
+        <div class="eyebrow">
+          Latest release
+        </div>
+
+
+        <h2>
+          Ready to read?
+        </h2>
+
+
+        <p>
+
+          Download the latest KOReader iOS/iPadOS
+          community build.
+
+        </p>
+
+
+        <div class="buttons">
+
+          <a
+            class="button primary"
+            href="https://github.com/luongminhtriet2702-jpg/koreader-ios-build/releases/latest"
+          >
+            ↓&nbsp; Download KOReader IPA
+          </a>
+
+
+          <a
+            class="button secondary"
+            href="https://github.com/luongminhtriet2702-jpg/koreader-ios-build/releases"
+            target="_blank"
+            rel="noopener"
+          >
+            View Releases
+          </a>
+
+        </div>
+
+
+        <div class="release-info">
+
+          KOReader-iOS.ipa · iOS / iPadOS · Community Build
+
+        </div>
+
       </div>
 
     </div>
@@ -929,25 +1253,29 @@
   </section>
 
 
-  <!-- FOOTER -->
+  <!-- ================= FOOTER ================= -->
 
   <footer>
 
     <div class="footer-inner">
 
+
       <div>
-        © 2026 KOReader iOS community build
+
+        © 2026 KOReader iOS Community Build
+
       </div>
 
 
       <div class="footer-links">
+
 
         <a
           href="https://github.com/luongminhtriet2702-jpg/koreader-ios-build"
           target="_blank"
           rel="noopener"
         >
-          GitHub
+          My GitHub
         </a>
 
 
@@ -956,23 +1284,25 @@
           target="_blank"
           rel="noopener"
         >
-          Source
+          iOS Fork
         </a>
 
 
         <a
-          href="https://koreader.rocks/"
+          href="https://github.com/koreader/koreader"
           target="_blank"
           rel="noopener"
         >
           KOReader
         </a>
 
+
       </div>
 
     </div>
 
   </footer>
+
 
 </body>
 </html>
